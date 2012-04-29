@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e #script stops executing if any command returns a non-zero code
+echo
+echo "Starting to setup computer..."
+echo
+
+#
+# Run all necessary apt-gets
+#
+echo
+echo "Installing software..."
+echo -e -n "\tbuild-essential - "
+apt-get install build-essential > /dev/null
+echo "SUCCESS"
+echo
+
+#
+# Copy necessary resources
+#
+echo
+echo "Installing resources..."
+echo -n -e "\tcopying vimrc to home - "
+cp resources/vimrc ~/.vimrc
+echo "SUCCESS"
+echo
+
+exit 0
