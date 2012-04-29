@@ -3,16 +3,23 @@
 set -e #script stops executing if any command returns a non-zero code
 echo
 echo "Starting to setup computer..."
-echo
+echo "You must be a sudoer to run this script. Prove it."
+sudo echo "sudo SUCCESS." #challenge sudo
 
 #
 # Run all necessary apt-gets
 #
 echo
 echo "Installing software..."
-echo -e -n "\tbuild-essential - "
-apt-get install build-essential > /dev/null
-echo "SUCCESS"
+
+echo
+echo -e "\tbuild-essential"
+sudo apt-get install build-essential
+echo
+
+echo
+echo -e "\tvim"
+sudo apt-get install vim
 echo
 
 #
@@ -22,6 +29,16 @@ echo
 echo "Installing resources..."
 echo -n -e "\tcopying vimrc to home - "
 cp resources/vimrc ~/.vimrc
+echo "SUCCESS"
+echo
+
+#
+# Delete dumb resources
+#
+echo
+echo "Deleteing dumb resources..."
+echo -n -e "\tvarious dirs in home - "
+rm -rf ~/Pictures ~/Videos ~/Documents ~/Music ~/Public ~/Templates
 echo "SUCCESS"
 echo
 
