@@ -42,4 +42,15 @@ rm -rf ~/Pictures ~/Videos ~/Documents ~/Music ~/Public ~/Templates
 echo "SUCCESS"
 echo
 
+#
+# Configure git
+#
+echo
+echo -n "Configuring git..."
+git config --global user.name "Jordan Place"
+git config --global user.email "tapman90@gmail.com"
+echo "SUCCESS"
+echo
+
+
 exit 0
