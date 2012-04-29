@@ -11,16 +11,9 @@ sudo echo "sudo SUCCESS." #challenge sudo
 #
 echo
 echo "Installing software..."
+sudo apt-get install < resources/install_list.txt
+echo 
 
-echo
-echo -e "\tbuild-essential"
-sudo apt-get install build-essential
-echo
-
-echo
-echo -e "\tvim"
-sudo apt-get install vim
-echo
 
 #
 # Copy necessary resources
