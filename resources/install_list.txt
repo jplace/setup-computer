@@ -1,1 +1,4 @@
-build-essential vim libargtable2-dev wireshark
+build-essential
+vim
+libargtable2-0
+wireshark

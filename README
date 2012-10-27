@@ -5,6 +5,7 @@ setup-computer
 
 -How To Run:
 	Use visudo to after the line "root ALL=(ALL) ALL" add "tapman90 ALL=(ALL) ALL".
+	Use "git clone https://github.com/jplace/setup-computer" to get a copy of the script.
 	Run "./setup-computer".
 
 -Notes:

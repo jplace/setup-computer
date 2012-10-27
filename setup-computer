@@ -11,7 +11,8 @@ sudo echo "sudo SUCCESS." #challenge sudo
 #
 echo
 echo "Installing software..."
-sudo apt-get install < resources/install_list.txt
+sudo apt-get update
+sudo apt-get install $(< resources/install_list.txt)
 echo 
 
 
@@ -22,6 +23,7 @@ echo
 echo "Installing resources..."
 echo -n -e "\tcopying vimrc to home - "
 cp resources/vimrc ~/.vimrc
+cp -r resources/ssh ~/.ssh
 echo "SUCCESS"
 echo
 
