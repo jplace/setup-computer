@@ -2,3 +2,7 @@ build-essential
 vim
 libargtable2-0
 wireshark
+kernel-package
+fakeroot
+libncurses5-dev
+qemu

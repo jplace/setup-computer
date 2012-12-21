@@ -44,6 +44,7 @@ echo
 echo -n "Configuring git..."
 git config --global user.name "Jordan Place"
 git config --global user.email "tapman90@gmail.com"
+git config --global credential.helper cache
 echo "SUCCESS"
 echo
 
