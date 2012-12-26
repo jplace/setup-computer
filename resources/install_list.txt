@@ -6,3 +6,5 @@ kernel-package
 fakeroot
 libncurses5-dev
 qemu
+indent
+
