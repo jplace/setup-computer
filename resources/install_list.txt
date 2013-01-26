@@ -7,4 +7,5 @@ fakeroot
 libncurses5-dev
 qemu
 indent
+module-assistant
 
