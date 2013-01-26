@@ -1,0 +1,1 @@
+alias mount-kellyk='sudo mount -t vboxsf KellyKShare /home/tapman90/KellyKShare'

@@ -34,6 +34,10 @@ echo -n -e "\tcopying ssh keys to home - "
 cp -r resources/ssh ~/.ssh
 echo -n -e "\tcopying indent.pro to home - "
 cp resources/indent.pro ~/.indent.pro
+echo -n -e "\tcopying bashrc to home - "
+cp resources/bashrc ~/.bashrc
+echo -n -e "\tcopying bash_aliases to home - "
+cp resources/bash_aliases ~/.bash_aliases
 echo "SUCCESS"
 echo
 
