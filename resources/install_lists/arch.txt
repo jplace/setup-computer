@@ -1,0 +1,4 @@
+vim
+openssh
+fakeroot
+indent

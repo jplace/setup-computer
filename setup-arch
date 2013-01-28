@@ -1,0 +1,66 @@
+#!/bin/bash
+
+set -e #script stops executing if any command returns a non-zero code
+echo
+echo "Starting to setup-arch..."
+echo "You must be a sudoer to run this script. Prove it."
+sudo echo "sudo SUCCESS." #challenge sudo
+
+#
+# Run all necessary apt-gets
+#
+echo
+echo "Installing software..."
+sudo pacman -Syu
+sudo pacman -S $(< resources/install_lists/arch.txt)
+echo 
+
+#
+# Install anything additional
+#
+#echo
+#echo "Installing additional things..."
+#sudo ma-prepare
+#echo
+
+#
+# Copy necessary resources
+#
+echo
+echo "Installing resources..."
+echo -e "\tcopying vimrc to home - "
+cp resources/vimrc ~/.vimrc
+echo -e "\tcopying ssh keys to home - "
+cp -r resources/ssh ~/.ssh
+echo -e "\tcopying indent.pro to home - "
+cp resources/indent.pro ~/.indent.pro
+echo -e "\tcopying bashrc to home - "
+cp resources/bashrc ~/.bashrc
+echo -e "\tcopying bash_aliases to home - "
+cp resources/bash_aliases ~/.bash_aliases
+echo "SUCCESS"
+echo
+
+#
+# Delete dumb resources
+#
+#echo
+#echo "Deleteing dumb resources..."
+#echo -n -e "\tvarious dirs in home - "
+#rm -rf ~/Pictures ~/Videos ~/Documents ~/Music ~/Public ~/Templates
+#echo "SUCCESS"
+#echo
+
+#
+# Configure git
+#
+echo
+echo -n "Configuring git..."
+git config --global user.name "Jordan Place"
+git config --global user.email "tapman90@gmail.com"
+git config --global credential.helper cache
+echo "SUCCESS"
+echo
+
+
+exit 0
