@@ -8,4 +8,5 @@ libncurses5-dev
 qemu
 indent
 module-assistant
-
+python
+cscope
