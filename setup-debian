@@ -18,25 +18,24 @@ echo
 #
 # Install anything additional
 #
-echo
-echo "Installing additional things..."
-sudo ma-prepare
-echo
+#echo
+#echo "Installing additional things..."
+#echo
 
 #
 # Copy necessary resources
 #
 echo
 echo "Installing resources..."
-echo -n -e "\tcopying vimrc to home - "
+echo -e "\tcopying vimrc to home - "
 cp resources/vimrc ~/.vimrc
-echo -n -e "\tcopying ssh keys to home - "
+echo -e "\tcopying ssh keys to home - "
 cp -r resources/ssh ~/.ssh
-echo -n -e "\tcopying indent.pro to home - "
+echo -e "\tcopying indent.pro to home - "
 cp resources/indent.pro ~/.indent.pro
-echo -n -e "\tcopying bashrc to home - "
+echo -e "\tcopying bashrc to home - "
 cp resources/bashrc ~/.bashrc
-echo -n -e "\tcopying bash_aliases to home - "
+echo -e "\tcopying bash_aliases to home - "
 cp resources/bash_aliases ~/.bash_aliases
 echo "SUCCESS"
 echo

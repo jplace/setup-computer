@@ -11,7 +11,7 @@ if [ $TEST_ARCH -eq 0 ]; then
 	echo "You are running Arch Linux."
 	echo "Running ./setup-arch..."
 	./setup-arch	
-elif [ $TEST_DEBIAB -eq 0 ]; then
+elif [ $TEST_DEBIAN -eq 0 ]; then
 	echo "You are running Debian Linux."
 	echo "Running ./setup-debian..."
 	./setup-debian
