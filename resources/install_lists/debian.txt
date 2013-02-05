@@ -10,3 +10,4 @@ indent
 module-assistant
 python
 cscope
+texlive
