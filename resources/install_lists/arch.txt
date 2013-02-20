@@ -2,4 +2,4 @@ vim
 openssh
 fakeroot
 indent
-gparted
+parted
