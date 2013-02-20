@@ -37,6 +37,9 @@ echo -e "\tcopying bashrc to home - "
 cp resources/bashrc ~/.bashrc
 echo -e "\tcopying bash_aliases to home - "
 cp resources/bash_aliases ~/.bash_aliases
+echo -e "\tcopying cscope_maps.vim to home - "
+mkdir ~/.vim/plugin
+cp resources/cscope_maps.vim ~/.vim/plugin
 echo "SUCCESS"
 echo
 
