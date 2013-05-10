@@ -11,3 +11,4 @@ module-assistant
 python
 cscope
 texlive
+texlive-latex-extra
