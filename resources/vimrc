@@ -42,6 +42,10 @@ if &diff
 	set diffopt=filler,context:1000000
 endif
 
+" Install pathogen such that
+" ~/.vim/bundle
+execute pathogen#infect()
+
 set showcmd            " Show (partial) command in status line.
 set showmatch          " Show matching brackets.
 set ignorecase         " Do case insensitive matching
@@ -53,7 +57,5 @@ set mouse=a            " Enable mouse usage (all modes) in terminals
 set notimeout	       " Disable timeouts
 set cursorline	       " Highligh the current line
 colorscheme desert     " Set the colorscheme
-"set tabstop=4          " Tab indents by 4 spaces
-"set shiftwidth=4       " Indents by 4 spaces
-"set expandtab          " Convert tabs to spaces
-
+set tabstop=4          " Tab indents by 4 spaces
+set shiftwidth=4       " Indents by 4 spaces

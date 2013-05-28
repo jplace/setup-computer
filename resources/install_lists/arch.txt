@@ -3,3 +3,4 @@ openssh
 fakeroot
 indent
 parted
+curl
