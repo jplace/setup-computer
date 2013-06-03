@@ -5,6 +5,7 @@ which pacman > /dev/null 2> /dev/null
 ARCH=$?
 which apt-get > /dev/null 2> /dev/null
 DEBIAN=$?
+UBUNTU=$DEBIAN
 
 set -e # script stops executing if any command returns a non-zero code
 
