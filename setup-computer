@@ -2,21 +2,112 @@
 
 # Perform tests to determine which OS this script is running in
 which pacman > /dev/null 2> /dev/null
-TEST_ARCH=$?
+ARCH=$?
 which apt-get > /dev/null 2> /dev/null
-TEST_DEBIAN=$?
+DEBIAN=$?
 
-# Run the appropriate script
-if [ $TEST_ARCH -eq 0 ]; then
+set -e # script stops executing if any command returns a non-zero code
+
+# Introduce appropriate script
+if [ $ARCH -eq 0 ]; then
 	echo "You are running Arch Linux."
-	echo "Running ./setup-arch..."
-	./setup-arch	
-elif [ $TEST_DEBIAN -eq 0 ]; then
+elif [ $DEBIAN -eq 0 ]; then
 	echo "You are running Debian Linux."
-	echo "Running ./setup-debian..."
-	./setup-debian
+elif [ $UBUNTU -eq 0 ]; then
+	echo "You are running Ubuntu Linux."
 else
 	echo "ERROR: Script cannot identify which OS you are running."
 	echo "Please fix this script and run it again."
 	exit 1
 fi
+
+# Challenge sudo
+echo "You must be a sudoer to run this script. Prove it."
+sudo echo "sudo SUCCESS."
+
+
+#
+# Run all necessary apt-gets
+#
+echo
+echo "Installing software..."
+if [ $ARCH -eq 0 ]; then
+	sudo pacman -Syu
+	sudo pacman -S $(< resources/install_lists/arch.txt)
+else
+	sudo apt-get update
+	sudo apt-get install $(< resources/install_lists/debian.txt)
+fi
+echo 
+
+
+#
+# Install anything additional
+#
+if [ $DEBIAN -eq 0 ] || [ $UBUNTU -eq 0 ]; then
+	echo
+	echo "Installing additional things..."
+	echo -e "\tinstalling pathogen - "
+	mkdir -p ~/.vim/autoload ~/.vim/bundle
+	curl -Sso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+	echo -e "\tinstalling surround - "
+	if [ ! -d ~/.vim/bundle/vim-surround ]; then
+		cd ~/.vim/bundle/
+		git clone git://github.com/tpope/vim-surround.git
+		cd -
+	fi
+	echo -e "\tinstalling tComment - "
+	if [ ! -d ~/.vim/bundle/tcomment_vim ]; then
+		cd ~/.vim/bundle/
+		git clone git://github.com/tomtom/tcomment_vim.git
+		cd -
+	fi
+	echo "SUCCESS"
+	echo
+fi
+
+#
+# Copy necessary resources
+#
+echo
+echo "Installing resources..."
+echo -e "\tcopying vimrc to home - "
+cp resources/vimrc ~/.vimrc
+echo -e "\tcopying ssh keys to home - "
+cp -r resources/ssh ~/.ssh
+echo -e "\tcopying indent.pro to home - "
+cp resources/indent.pro ~/.indent.pro
+echo -e "\tcopying bashrc to home - "
+cp resources/bashrc ~/.bashrc
+echo -e "\tcopying bash_aliases to home - "
+cp resources/bash_aliases ~/.bash_aliases
+echo -e "\tcopying cscope_maps.vim to home - "
+mkdir -p ~/.vim/plugin
+cp resources/cscope_maps.vim ~/.vim/plugin
+echo "SUCCESS"
+echo
+
+#
+# Delete dumb resources
+#
+if [ $DEBIAN -eq 0 ]; then
+	echo
+	echo "Deleteing dumb resources..."
+	echo -e "\tvarious dirs in home - "
+	rm -rf ~/Pictures ~/Videos ~/Documents ~/Music ~/Public ~/Templates
+	echo "SUCCESS"
+	echo
+fi
+
+#
+# Configure git
+#
+echo
+echo "Configuring git..."
+git config --global user.name "Jordan Place"
+git config --global user.email "tapman90@gmail.com"
+git config --global credential.helper cache
+echo "SUCCESS"
+echo
+
+exit 0
