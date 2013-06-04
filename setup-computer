@@ -1,11 +1,17 @@
 #!/bin/bash
 
-# Perform tests to determine which OS this script is running in
+# Determine OS
 which pacman > /dev/null 2> /dev/null
 ARCH=$?
 which apt-get > /dev/null 2> /dev/null
 DEBIAN=$?
 UBUNTU=$DEBIAN
+
+# Determine X64 or X86
+X64=true
+if [[ `uname -m` == i* ]]; then
+	X64=false
+fi
 
 set -e # script stops executing if any command returns a non-zero code
 
@@ -45,9 +51,9 @@ echo
 #
 # Install anything additional
 #
+echo
+echo "Installing additional things..."
 if [ $DEBIAN -eq 0 ] || [ $UBUNTU -eq 0 ]; then
-	echo
-	echo "Installing additional things..."
 	echo -e "\tinstalling pathogen - "
 	mkdir -p ~/.vim/autoload ~/.vim/bundle
 	curl -Sso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
@@ -63,9 +69,19 @@ if [ $DEBIAN -eq 0 ] || [ $UBUNTU -eq 0 ]; then
 		git clone git://github.com/tomtom/tcomment_vim.git
 		cd -
 	fi
-	echo "SUCCESS"
-	echo
 fi
+echo -e "\tinstalling dropbox - "
+cd ~
+if $X64; then
+	wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+else
+	wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
+fi
+~/.dropbox-dist/dropboxd
+cd -
+sudo cp resources/dropbox.py /usr/bin/dropbox
+echo "SUCCESS"
+echo
 
 #
 # Copy necessary resources
