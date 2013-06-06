@@ -71,14 +71,16 @@ if [ $DEBIAN -eq 0 ] || [ $UBUNTU -eq 0 ]; then
 	fi
 fi
 echo -e "\tinstalling dropbox - "
-cd ~
-if $X64; then
-	wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-else
-	wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
+if [ ! -d ~/Dropbox ]; then
+	cd ~
+	if $X64; then
+		wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+	else
+		wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
+	fi
+	~/.dropbox-dist/dropboxd &
+	cd -
 fi
-~/.dropbox-dist/dropboxd
-cd -
 sudo cp resources/dropbox.py /usr/bin/dropbox
 echo "SUCCESS"
 echo
