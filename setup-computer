@@ -6,6 +6,9 @@ ARCH=$?
 which apt-get > /dev/null 2> /dev/null
 DEBIAN=$?
 UBUNTU=$DEBIAN
+if [ `uname -s` = "Darwin" ]; then
+	MAC=0
+fi
 
 # Determine X64 or X86
 X64=true
@@ -22,6 +25,8 @@ elif [ $DEBIAN -eq 0 ]; then
 	echo "You are running Debian Linux."
 elif [ $UBUNTU -eq 0 ]; then
 	echo "You are running Ubuntu Linux."
+elif [ $MAC -eq 0 ]; then
+	echo "You are running Mac OS X."
 else
 	echo "ERROR: Script cannot identify which OS you are running."
 	echo "Please fix this script and run it again."
@@ -41,10 +46,11 @@ echo "Installing software..."
 if [ $ARCH -eq 0 ]; then
 	sudo pacman -Syu
 	sudo pacman -S $(< resources/install_lists/arch.txt)
-else
+elif [ $MAC -ne 0 ]; then
 	sudo apt-get update
 	sudo apt-get install $(< resources/install_lists/debian.txt)
 fi
+echo "SUCCESS"
 echo 
 
 
@@ -70,18 +76,20 @@ if [ $DEBIAN -eq 0 ] || [ $UBUNTU -eq 0 ]; then
 		cd -
 	fi
 fi
-echo -e "\tinstalling dropbox - "
-if [ ! -d ~/Dropbox ]; then
-	cd ~
-	if $X64; then
-		wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-	else
-		wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
+if [ $MAC -ne 0 ]; then
+	echo -e "\tinstalling dropbox - "
+	if [ ! -d ~/Dropbox ]; then
+		cd ~
+		if $X64; then
+			wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+		else
+			wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
+		fi
+		~/.dropbox-dist/dropboxd &
+		cd -
 	fi
-	~/.dropbox-dist/dropboxd &
-	cd -
+	sudo cp resources/dropbox.py /usr/bin/dropbox
 fi
-sudo cp resources/dropbox.py /usr/bin/dropbox
 echo "SUCCESS"
 echo
 
@@ -91,18 +99,18 @@ echo
 echo
 echo "Installing resources..."
 echo -e "\tcopying vimrc to home - "
-cp resources/vimrc ~/.vimrc
+cp -n resources/vimrc ~/.vimrc
 echo -e "\tcopying ssh keys to home - "
-cp -r resources/ssh ~/.ssh
+cp -n -r resources/ssh ~/.ssh
 echo -e "\tcopying indent.pro to home - "
-cp resources/indent.pro ~/.indent.pro
+cp -n resources/indent.pro ~/.indent.pro
 echo -e "\tcopying bashrc to home - "
-cp resources/bashrc ~/.bashrc
+cp -n resources/bashrc ~/.bashrc
 echo -e "\tcopying bash_aliases to home - "
-cp resources/bash_aliases ~/.bash_aliases
+cp -n resources/bash_aliases ~/.bash_aliases
 echo -e "\tcopying cscope_maps.vim to home - "
 mkdir -p ~/.vim/plugin
-cp resources/cscope_maps.vim ~/.vim/plugin
+cp -n resources/cscope_maps.vim ~/.vim/plugin
 echo "SUCCESS"
 echo
 
@@ -121,12 +129,14 @@ fi
 #
 # Configure git
 #
-echo
-echo "Configuring git..."
-git config --global user.name "Jordan Place"
-git config --global user.email "tapman90@gmail.com"
-git config --global credential.helper cache
-echo "SUCCESS"
-echo
+if [ $MAC -ne 0 ]; then
+	echo
+	echo "Configuring git..."
+	git config --global user.name "Jordan Place"
+	git config --global user.email "tapman90@gmail.com"
+	git config --global credential.helper cache
+	echo "SUCCESS"
+	echo
+fi
 
 exit 0
