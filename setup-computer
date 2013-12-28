@@ -16,9 +16,12 @@ if [[ `uname -m` == i* ]]; then
 	X64=false
 fi
 
-set -e # script stops executing if any command returns a non-zero code
+# Script stops executing if any command returns a non-zero code
+set -e
 
-# Introduce appropriate script
+# Introduce appropriate script.
+# Whichever platform we determine we are running on will have
+# its environment variable = 0.
 if [ $ARCH -eq 0 ]; then
 	echo "You are running Arch Linux."
 elif [ $DEBIAN -eq 0 ]; then
@@ -38,25 +41,21 @@ echo "You must be a sudoer to run this script. Prove it."
 sudo echo "sudo SUCCESS."
 
 
-#
 # Run all necessary apt-gets
-#
 echo
 echo "Installing software..."
 if [ $ARCH -eq 0 ]; then
 	sudo pacman -Syu
-	sudo pacman -S $(< resources/install_lists/arch.txt)
+	sudo pacman -S $(< resources/linux/install_lists/arch.txt)
 elif [ $MAC -ne 0 ]; then
 	sudo apt-get update
-	sudo apt-get install $(< resources/install_lists/debian.txt)
+	sudo apt-get install $(< resources/linux/install_lists/debian.txt)
 fi
 echo "SUCCESS"
 echo 
 
 
-#
 # Install anything additional
-#
 echo
 echo "Installing additional things..."
 if [ $DEBIAN -eq 0 ] || [ $UBUNTU -eq 0 ]; then
@@ -88,35 +87,40 @@ if [ $MAC -ne 0 ]; then
 		~/.dropbox-dist/dropboxd &
 		cd -
 	fi
-	sudo cp resources/dropbox.py /usr/bin/dropbox
+	sudo cp resources/mac/dropbox.py /usr/bin/dropbox
 fi
 echo "SUCCESS"
 echo
 
-#
 # Copy necessary resources
-#
 echo
 echo "Installing resources..."
+
 echo -e "\tcopying vimrc to home - "
-cp -n resources/vimrc ~/.vimrc
-echo -e "\tcopying ssh keys to home - "
-cp -n -r resources/ssh ~/.ssh
-echo -e "\tcopying indent.pro to home - "
-cp -n resources/indent.pro ~/.indent.pro
-echo -e "\tcopying bashrc to home - "
-cp -n resources/bashrc ~/.bashrc
-echo -e "\tcopying bash_aliases to home - "
-cp -n resources/bash_aliases ~/.bash_aliases
+cp -n resources/all/vimrc ~/.vimrc
+
 echo -e "\tcopying cscope_maps.vim to home - "
 mkdir -p ~/.vim/plugin
-cp -n resources/cscope_maps.vim ~/.vim/plugin
+cp -n resources/all/cscope_maps.vim ~/.vim/plugin
+
+echo -e "\tcopying ssh keys to home - "
+cp -n -r resources/all/ssh ~/.ssh
+
+echo -e "\tcopying indent.pro to home - "
+cp -n resources/all/indent.pro ~/.indent.pro
+
+echo -e "\tcopying bashrc to home - "
+test $MAC -ne 0 && cp -n resources/linux/bashrc ~/.bashrc
+test $MAC -eq 0 && cp -n resources/mac/bashrc ~/.bashrc
+
+echo -e "\tcopying bash_aliases to home - "
+test $MAC -ne 0 && cp -n resources/linux/bash_aliases ~/.bash_aliases
+test $MAC -eq 0 && cp -n resources/mac/bash_aliases ~/.bash_aliases
+
 echo "SUCCESS"
 echo
 
-#
 # Delete dumb resources
-#
 if [ $DEBIAN -eq 0 ]; then
 	echo
 	echo "Deleteing dumb resources..."
@@ -126,9 +130,7 @@ if [ $DEBIAN -eq 0 ]; then
 	echo
 fi
 
-#
 # Configure git
-#
 if [ $MAC -ne 0 ]; then
 	echo
 	echo "Configuring git..."

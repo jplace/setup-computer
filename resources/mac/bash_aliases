@@ -1,0 +1,2 @@
+# enable color support of ls
+alias ls='ls -Gp'
