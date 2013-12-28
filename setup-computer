@@ -87,7 +87,7 @@ if [ $MAC -ne 0 ]; then
 		~/.dropbox-dist/dropboxd &
 		cd -
 	fi
-	sudo cp resources/mac/dropbox.py /usr/bin/dropbox
+	sudo cp -n resources/mac/dropbox.py /usr/bin/dropbox
 fi
 echo "SUCCESS"
 echo
@@ -97,7 +97,7 @@ echo
 echo "Installing resources..."
 
 echo -e "\tcopying vimrc to home - "
-cp -n resources/all/vimrc ~/.vimrc
+cp -i resources/all/vimrc ~/.vimrc
 
 echo -e "\tcopying cscope_maps.vim to home - "
 mkdir -p ~/.vim/plugin
@@ -107,15 +107,20 @@ echo -e "\tcopying ssh keys to home - "
 cp -n -r resources/all/ssh ~/.ssh
 
 echo -e "\tcopying indent.pro to home - "
-cp -n resources/all/indent.pro ~/.indent.pro
+cp -i resources/all/indent.pro ~/.indent.pro
 
 echo -e "\tcopying bashrc to home - "
-test $MAC -ne 0 && cp -n resources/linux/bashrc ~/.bashrc
-test $MAC -eq 0 && cp -n resources/mac/bashrc ~/.bashrc
+test $MAC -ne 0 && cp -i resources/linux/bashrc ~/.bashrc
+test $MAC -eq 0 && cp -i resources/mac/bashrc ~/.bashrc
 
 echo -e "\tcopying bash_aliases to home - "
-test $MAC -ne 0 && cp -n resources/linux/bash_aliases ~/.bash_aliases
-test $MAC -eq 0 && cp -n resources/mac/bash_aliases ~/.bash_aliases
+test $MAC -ne 0 && cp -i resources/linux/bash_aliases ~/.bash_aliases
+test $MAC -eq 0 && cp -i resources/mac/bash_aliases ~/.bash_aliases
+
+if [ $MAC -eq 0]; then
+	echo -e "\tcopying profile to home - "
+	cp -i resource/mac/profile ~/.profile
+fi
 
 echo "SUCCESS"
 echo
