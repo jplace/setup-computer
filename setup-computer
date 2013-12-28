@@ -120,6 +120,10 @@ test $MAC -eq 0 && cp -i resources/mac/bash_aliases ~/.bash_aliases
 if [ $MAC -eq 0]; then
 	echo -e "\tcopying profile to home - "
 	cp -i resource/mac/profile ~/.profile
+
+	echo -e "\tcopying git-completion and git-prompt to home - "
+	cp -n resource/mac/git-completion.bash ~/.git-completion.bash
+	cp -n resource/mac/git-prompt.sh ~/.git-prompt.sh
 fi
 
 echo "SUCCESS"
