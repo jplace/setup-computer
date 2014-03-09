@@ -1,2 +1,6 @@
 # enable color support of ls
 alias ls='ls -Gp'
+
+# webserver for basic website design
+# usage: webserver
+alias webserver='echo "Staring web server on port 8881..."; python -m SimpleHTTPServer 8881'
