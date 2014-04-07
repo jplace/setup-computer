@@ -1,11 +1,14 @@
 #!/bin/bash
 
-# Determine OS
+# Determine if Linux
 which pacman > /dev/null 2> /dev/null
 ARCH=$?
 which apt-get > /dev/null 2> /dev/null
 DEBIAN=$?
 UBUNTU=$DEBIAN
+
+# Determine if Mac
+MAC=1
 if [ `uname -s` = "Darwin" ]; then
 	MAC=0
 fi
