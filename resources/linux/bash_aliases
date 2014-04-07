@@ -1,0 +1,7 @@
+# mounts an shared directory on a vbox VM
+# NOTE: the path is hardcoded right now...
+alias mount-kellyk='sudo mount -t vboxsf KellyKShare /home/tapman90/KellyKShare'
+
+# webserver for basic website design
+# usage: webserver
+alias webserver='echo "Staring web server on port 8881..."; python -m SimpleHTTPServer 8881'

@@ -1,4 +1,0 @@
-alias mount-kellyk='sudo mount -t vboxsf KellyKShare /home/tapman90/KellyKShare'
-alias set-volume='amixer set Master '
-alias mute='amixer set Master 0'
-alias turnt-up='amixer set Master 100%'
