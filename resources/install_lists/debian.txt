@@ -1,6 +1,7 @@
 build-essential
 vim
-libargtable2-0
+libargtable2-dev
+libpcap-dev
 wireshark
 kernel-package
 fakeroot
@@ -13,3 +14,5 @@ cscope
 texlive
 texlive-latex-extra
 curl
+chromium-codecs-ffmpeg-extra
+xpdf
