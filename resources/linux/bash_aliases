@@ -5,3 +5,8 @@ alias mount-kellyk='sudo mount -t vboxsf KellyKShare /home/tapman90/KellyKShare'
 # webserver for basic website design
 # usage: webserver
 alias webserver='echo "Staring web server on port 8881..."; python -m SimpleHTTPServer 8881'
+
+# volume controls
+alias set-volume='amixer set Master '
+alias mute='amixer set Master 0'
+alias turnt-up='amixer set Master 100%'
