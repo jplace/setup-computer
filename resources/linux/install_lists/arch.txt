@@ -4,3 +4,4 @@ fakeroot
 indent
 parted
 curl
+iperf

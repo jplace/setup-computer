@@ -16,3 +16,4 @@ texlive-latex-extra
 curl
 chromium-codecs-ffmpeg-extra
 xpdf
+iperf
