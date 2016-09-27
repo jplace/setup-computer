@@ -13,3 +13,6 @@ Run "./setup-computer".
 
 ##Notes
 The resources folder contains anything the bash script needs to copy or reference while executing.
+
+##Additional Thoughts
+I have enjoyed installing [drefile](https://github.com/luke0x/drefile) before -- you might think about installing it.
