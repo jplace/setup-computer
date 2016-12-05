@@ -156,14 +156,11 @@ fi
 #
 # Configure git
 #
-if [ $MAC -ne 0 ]; then
-	echo
-	echo "Configuring git..."
-	git config --global user.name "Jordan Place"
-	git config --global user.email "tapman90@gmail.com"
-	git config --global credential.helper cache
-	echo "SUCCESS"
-	echo
-fi
+echo
+echo "Configuring git..."
+git config --global user.name "Jordan Place"
+git config --global user.email "tapman90@gmail.com"
+git config --global credential.helper cache
+echo
 
 exit 0
