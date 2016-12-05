@@ -110,10 +110,6 @@ mkdir -p ~/.vim/plugin
 cp -i resources/all/cscope_maps.vim ~/.vim/plugin
 echo "SUCCESS"
 
-echo -e "\tcopying ssh keys to home - "
-cp -i -r resources/all/ssh ~/.ssh
-echo "SUCCESS"
-
 echo -e "\tcopying indent.pro to home - "
 cp -i resources/all/indent.pro ~/.indent.pro
 echo "SUCCESS"
