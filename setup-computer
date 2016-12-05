@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# Determine OS for further execution
+#
+
 # Determine if Linux
 which pacman > /dev/null 2> /dev/null
 ARCH=$?
@@ -19,9 +23,6 @@ if [[ `uname -m` == i* ]]; then
 	X64=false
 fi
 
-# Script stops executing if any command returns a non-zero code
-set -e
-
 # Introduce appropriate script.
 # Whichever platform we determine we are running on will have
 # its environment variable = 0.
@@ -39,14 +40,22 @@ else
 	exit 1
 fi
 
+#
+# Challence sudo
+#
+
 # Challenge sudo
 echo "You must be a sudoer to run this script. Prove it."
-sudo echo "sudo SUCCESS."
+sudo echo "sudo SUCCESS." || exit 1
 
+#
+# Install software
+#
 
 # Run all necessary apt-gets
 echo
 echo "Installing software..."
+
 if [ $ARCH -eq 0 ]; then
 	sudo pacman -Syu
 	sudo pacman -S $(< resources/linux/install_lists/arch.txt)
@@ -54,46 +63,39 @@ elif [ $MAC -ne 0 ]; then
 	sudo apt-get update
 	sudo apt-get install $(< resources/linux/install_lists/debian.txt)
 fi
-echo "SUCCESS"
-echo 
 
+echo
 
 # Install anything additional
 echo
 echo "Installing additional things..."
-if [ $DEBIAN -eq 0 ] || [ $UBUNTU -eq 0 ]; then
-	echo -e "\tinstalling pathogen - "
-	mkdir -p ~/.vim/autoload ~/.vim/bundle
-	curl -Sso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-	echo -e "\tinstalling surround - "
-	if [ ! -d ~/.vim/bundle/vim-surround ]; then
-		cd ~/.vim/bundle/
-		git clone git://github.com/tpope/vim-surround.git
-		cd -
-	fi
-	echo -e "\tinstalling tComment - "
-	if [ ! -d ~/.vim/bundle/tcomment_vim ]; then
-		cd ~/.vim/bundle/
-		git clone git://github.com/tomtom/tcomment_vim.git
-		cd -
-	fi
-fi
-if [ $MAC -ne 0 ]; then
-	echo -e "\tinstalling dropbox - "
-	if [ ! -d ~/Dropbox ]; then
-		cd ~
-		if $X64; then
-			wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-		else
-			wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
-		fi
-		~/.dropbox-dist/dropboxd &
-		cd -
-	fi
-	sudo cp -n resources/mac/dropbox.py /usr/bin/dropbox
+
+echo -e "\tinstalling pathogen - "
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+echo "SUCCESS"
+
+echo -e "\tinstalling surround - "
+if [ ! -d ~/.vim/bundle/vim-surround ]; then
+	cd ~/.vim/bundle/
+	git clone git://github.com/tpope/vim-surround.git
+	cd -
 fi
 echo "SUCCESS"
+
+echo -e "\tinstalling tComment - "
+if [ ! -d ~/.vim/bundle/tcomment_vim ]; then
+	cd ~/.vim/bundle/
+	git clone git://github.com/tomtom/tcomment_vim.git
+	cd -
+fi
+echo "SUCCESS"
+
 echo
+
+#
+# Copy resources
+#
 
 # Copy necessary resources
 echo
@@ -101,38 +103,47 @@ echo "Installing resources..."
 
 echo -e "\tcopying vimrc to home - "
 cp -i resources/all/vimrc ~/.vimrc
+echo "SUCCESS"
 
 echo -e "\tcopying cscope_maps.vim to home - "
 mkdir -p ~/.vim/plugin
-cp -n resources/all/cscope_maps.vim ~/.vim/plugin
+cp -i resources/all/cscope_maps.vim ~/.vim/plugin
+echo "SUCCESS"
 
 echo -e "\tcopying ssh keys to home - "
-cp -n -r resources/all/ssh ~/.ssh
+cp -i -r resources/all/ssh ~/.ssh
+echo "SUCCESS"
 
 echo -e "\tcopying indent.pro to home - "
 cp -i resources/all/indent.pro ~/.indent.pro
+echo "SUCCESS"
 
 echo -e "\tcopying bashrc to home - "
 test $MAC -ne 0 && cp -i resources/linux/bashrc ~/.bashrc
 test $MAC -eq 0 && cp -i resources/mac/bashrc ~/.bashrc
+echo "SUCCESS"
 
 echo -e "\tcopying bash_aliases to home - "
 test $MAC -ne 0 && cp -i resources/linux/bash_aliases ~/.bash_aliases
 test $MAC -eq 0 && cp -i resources/mac/bash_aliases ~/.bash_aliases
+echo "SUCCESS"
 
-if [ $MAC -eq 0]; then
+if [ $MAC -eq 0 ]; then
 	echo -e "\tcopying profile to home - "
-	cp -i resource/mac/profile ~/.profile
+	cp -i resources/mac/profile ~/.profile
+	echo "SUCCESS"
 
 	echo -e "\tcopying git-completion and git-prompt to home - "
-	cp -n resource/mac/git-completion.bash ~/.git-completion.bash
-	cp -n resource/mac/git-prompt.sh ~/.git-prompt.sh
+	cp -i resources/mac/git-completion.bash ~/.git-completion.bash
+	cp -i resources/mac/git-prompt.sh ~/.git-prompt.sh
+	echo "SUCCESS"
 fi
 
-echo "SUCCESS"
 echo
 
+#
 # Delete dumb resources
+#
 if [ $DEBIAN -eq 0 ]; then
 	echo
 	echo "Deleteing dumb resources..."
@@ -142,7 +153,9 @@ if [ $DEBIAN -eq 0 ]; then
 	echo
 fi
 
+#
 # Configure git
+#
 if [ $MAC -ne 0 ]; then
 	echo
 	echo "Configuring git..."
