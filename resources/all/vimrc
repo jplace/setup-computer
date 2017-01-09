@@ -57,9 +57,9 @@ set mouse=a                    " Enable mouse usage (all modes) in terminals
 set notimeout                  " Disable timeouts
 set cursorline                 " Highligh the current line
 colorscheme desert             " Set the colorscheme
-set tabstop=8                  " Tab indents by 4 spaces
-set shiftwidth=8               " Indents by 4 spaces
-"set expandtab                  " Expand tabs to spaces, use :%retab! to update a file with tabs
+set tabstop=4                  " Tab indents by 4 spaces
+set shiftwidth=4               " Indents by 4 spaces
+set expandtab                  " Expand tabs to spaces, use :%retab! to update a file with tabs
 set autoindent                 " always set autoindenting on
 set number                     " By default number all lines.
 set colorcolumn=80             " Display a colored column at column 80

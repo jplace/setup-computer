@@ -42,3 +42,7 @@ source ~/.git-prompt.sh
 
 # set up prompt
 PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
+
+# edit PATH to work with MacPorts
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export MANPATH=/opt/local/share/man:$MANPATH
