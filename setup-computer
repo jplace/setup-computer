@@ -110,6 +110,11 @@ mkdir -p ~/.vim/plugin
 cp -i resources/all/cscope_maps.vim ~/.vim/plugin
 echo "SUCCESS"
 
+echo -e "\tcopying scratch.vim to home - "
+mkdir -p ~/.vim/plugin
+cp -i resources/all/scratch.vim ~/.vim/plugin
+echo "SUCCESS"
+
 echo -e "\tcopying indent.pro to home - "
 cp -i resources/all/indent.pro ~/.indent.pro
 echo "SUCCESS"
