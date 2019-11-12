@@ -1,0 +1,37 @@
+# jplace's Mac .zshrc
+# -------------------
+
+# This configuration assumed Oh My Zsh is installed
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/jplace/.oh-my-zsh"
+
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="pygmalion"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# Configure large history with no duplicates
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+export HISTFILE=~/.zhistory
+setopt HIST_IGNORE_ALL_DUPS
+
+# Source aliases
+if [[ -f ~/.aliases ]]; then
+  source ~/.aliases
+fi
+
+# Make path bash compliant
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Edit PATH to work with MacPorts
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export MANPATH=/opt/local/share/man:$MANPATH
+
+# Edit PATH to work with non-sudo npm
+NPM_PACKAGES="${HOME}/.npm-packages"
+export PATH="$NPM_PACKAGES/bin:$PATH"
+export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"

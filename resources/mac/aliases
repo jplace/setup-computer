@@ -16,10 +16,19 @@ alias jperf='iperf -c iperf.switchnap.com'
 alias jdownload='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
 
 # transposit
-alias transposit='cd ~/Documents/work ; source venv/bin/activate ; . .transposit_aliases ; cd transposit'
+alias transposit='cd ~/Documents/work ; source .transposit_aliases ; cd transposit'
 
 # Mount my ZFS iTunes
 alias import-zack='sudo zpool import zack'
 
 # Unmount my ZFS iTunes
 alias export-zack='sudo zpool export zack'
+
+# Listen to music in a directory (kill the jackd process after)
+#alias jackd='jackd -d coreaudio'
+# then run `mocp <directory>`
+
+# Listen to music on the CLI
+alias fresh-tunes='rm -rf ~/.config/cmus ; cmus'
+# type ':add /path/to/playlist'
+# listen away!

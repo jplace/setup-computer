@@ -119,26 +119,15 @@ echo -e "\tcopying indent.pro to home - "
 cp -i resources/all/indent.pro ~/.indent.pro
 echo "SUCCESS"
 
-echo -e "\tcopying bashrc to home - "
+echo -e "\tcopying shellrc to home - "
 test $MAC -ne 0 && cp -i resources/linux/bashrc ~/.bashrc
-test $MAC -eq 0 && cp -i resources/mac/bashrc ~/.bashrc
+test $MAC -eq 0 && cp -i resources/mac/zshrc ~/.zshrc
 echo "SUCCESS"
 
-echo -e "\tcopying bash_aliases to home - "
+echo -e "\tcopying aliases to home - "
 test $MAC -ne 0 && cp -i resources/linux/bash_aliases ~/.bash_aliases
-test $MAC -eq 0 && cp -i resources/mac/bash_aliases ~/.bash_aliases
+test $MAC -eq 0 && cp -i resources/mac/aliases ~/.aliases
 echo "SUCCESS"
-
-if [ $MAC -eq 0 ]; then
-	echo -e "\tcopying profile to home - "
-	cp -i resources/mac/profile ~/.profile
-	echo "SUCCESS"
-
-	echo -e "\tcopying git-completion and git-prompt to home - "
-	cp -i resources/mac/git-completion.bash ~/.git-completion.bash
-	cp -i resources/mac/git-prompt.sh ~/.git-prompt.sh
-	echo "SUCCESS"
-fi
 
 echo
 

@@ -1,4 +1,0 @@
-# do most work in the bashrc
-source ~/.bashrc
-
-# setup python path or any other environment variables here
