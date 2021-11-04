@@ -1,6 +1,3 @@
-# enable color support of ls
-alias ls='ls -Gp'
-
 # rsync for itunes
 # usage: jsync sourcedir targetdir
 alias jsync='rsync -av --delete'
@@ -9,26 +6,19 @@ alias jsync='rsync -av --delete'
 # usage: webserver
 alias webserver='echo "Staring web server on port 8881..."; python -m SimpleHTTPServer 8881'
 
-# run iperf with a known, public iperf server
-alias jperf='iperf -c iperf.switchnap.com'
-
-# test bandwidth speed
-alias jdownload='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
-
-# transposit
-alias transposit='cd ~/Documents/work ; source .transposit_aliases ; cd transposit'
-
 # Mount my ZFS iTunes
 alias import-zack='sudo zpool import zack'
+alias import-bayside='sudo zpool import bayside'
 
 # Unmount my ZFS iTunes
 alias export-zack='sudo zpool export zack'
+alias export-bayside='sudo zpool export bayside'
 
-# Listen to music in a directory (kill the jackd process after)
-#alias jackd='jackd -d coreaudio'
-# then run `mocp <directory>`
+# Send an incremental ZFS backup
+# zfs send -i 20211003-v2 zack/osx-safe-data@newsnapshot | zfs recv bayside/osx-safe-data
 
 # Listen to music on the CLI
 alias fresh-tunes='rm -rf ~/.config/cmus ; cmus'
 # type ':add /path/to/playlist'
 # listen away!
+
