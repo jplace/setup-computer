@@ -151,6 +151,7 @@ echo "Configuring git..."
 git config --global user.name "Jordan Place"
 git config --global user.email "tapman90@gmail.com"
 git config --global credential.helper cache
+git config --global merge.conflictstyle diff3
 echo
 
 exit 0
