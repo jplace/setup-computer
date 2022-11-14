@@ -24,6 +24,13 @@ if [[ -f ~/.aliases ]]; then
   source ~/.aliases
 fi
 
+# Alt + arrow keys to jump by word
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+
+# Ctrl + U to delete before cursor
+bindkey \^U backward-kill-line
+
 # Make path bash compliant
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
