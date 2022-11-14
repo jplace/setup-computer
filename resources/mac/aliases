@@ -15,7 +15,10 @@ alias export-zack='sudo zpool export zack'
 alias export-bayside='sudo zpool export bayside'
 
 # Send an incremental ZFS backup
-# zfs send -i 20211003-v2 zack/osx-safe-data@newsnapshot | zfs recv bayside/osx-safe-data
+# sudo zfs snapshot zack/osx-safe-data@<latest-zack>
+# zfs list -t snapshot
+# zfs rollback bayside/osx-safe-data@<latest-bayside>
+# sudo zfs send -i <latest-bayside> zack/osx-safe-data@<latest-zack> | zfs recv bayside/osx-safe-data
 
 # Listen to music on the CLI
 alias fresh-tunes='rm -rf ~/.config/cmus ; cmus'
