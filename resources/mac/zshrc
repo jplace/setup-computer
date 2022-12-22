@@ -31,6 +31,9 @@ bindkey "^[[1;3D" backward-word
 # Ctrl + U to delete before cursor
 bindkey \^U backward-kill-line
 
+# Make clear include clearing scroll-back
+alias clear="clear && printf '\e[3J'"
+
 # Make path bash compliant
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
