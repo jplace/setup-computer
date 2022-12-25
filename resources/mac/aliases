@@ -9,10 +9,12 @@ alias webserver='echo "Staring web server on port 8881..."; python -m SimpleHTTP
 # Mount my ZFS iTunes
 alias import-zack='sudo zpool import zack'
 alias import-bayside='sudo zpool import bayside'
+alias import-calu='sudo zpool import calu'
 
 # Unmount my ZFS iTunes
 alias export-zack='sudo zpool export zack'
 alias export-bayside='sudo zpool export bayside'
+alias export-calu='sudo zpool export calu'
 
 # Send an incremental ZFS backup
 # sudo zfs snapshot zack/osx-safe-data@<latest-zack>
